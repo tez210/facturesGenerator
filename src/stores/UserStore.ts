@@ -5,11 +5,14 @@ export const useUserStore = defineStore('user', () => {
   const userConnected = ref(false)
   const username = ref("")
   const password = ref("")
+
   function connect() {
     userConnected.value = true
   }
   function disconnect() {
     userConnected.value = false
+    username.value = ""
+    password.value = ""
   }
 
   return { userConnected, connect, disconnect, username, password }

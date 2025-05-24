@@ -1,5 +1,4 @@
 // src/main.ts
-import './assets/main.css'
 import 'vuetify/styles' // Styles Vuetify
 import '@mdi/font/css/materialdesignicons.css' // Icônes (optionnel)
 
@@ -27,7 +26,7 @@ const vuetify = createVuetify({
           light: '#FFFBDE',
           error: '#CB0404',
           info: '#096B68',
-          success: '#309898',
+          success: '#2abe17',
           warning: '#FF9F00',
           onPrimary: '#096B68',
           onSecondary: '#096B68',
