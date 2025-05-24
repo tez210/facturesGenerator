@@ -9,8 +9,6 @@ import App from './App.vue'
 import router from './router'
 
 import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
 
 const vuetify = createVuetify({
   theme: {
@@ -19,10 +17,10 @@ const vuetify = createVuetify({
       myCustomTheme: {
         dark: true,
         colors: {
-          background: '#096B68',
-          surface: '#129990',
-          primary: '#129990',
-          secondary: '#90D1CA',
+          background: '#E1EEBC',
+          surface: '#C78880',
+          primary: '#328E6E',
+          secondary: '#DDF6D2',
           light: '#FFFBDE',
           error: '#CB0404',
           info: '#096B68',

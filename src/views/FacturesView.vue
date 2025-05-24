@@ -8,9 +8,9 @@
           <td>{{ item.id }}</td>
           <td>{{ item.dateFacture }}</td>
           <td>{{ item.titulaire }}</td>
-          <td>${{ item.sommeBrut.toLocaleString() }}</td>
+          <td>{{ item.sommeBrut.toLocaleString() }}€</td>
           <td>{{ item.taux }}</td>
-          <td>${{ item.sommeRecu.toLocaleString() }}</td>
+          <td>{{ item.sommeRecu.toLocaleString() }}€</td>
           <td>{{ item.dateDebutRempla }}</td>
           <td>{{ item.dateFinRempla }}</td>
           <td class="text-end">

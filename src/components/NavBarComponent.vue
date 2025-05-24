@@ -1,16 +1,17 @@
 <template>
-  <v-app-bar color="primary" app v-if="userStore.userConnected">
+  <!-- v-if="userConnected" -->
+  <v-app-bar color="primary" app>
     <template v-slot:prepend>
-        <v-app-bar-title  class="ml-5 mr-8">
-            Factures Generator
-        </v-app-bar-title>
-        
-        <v-btn to="/factures" router flat >Factures</v-btn>
-        <v-btn to="/contacts" router flat >Contacts</v-btn>
+      <v-app-bar-title class="ml-5 mr-8">
+        Factures Generator
+      </v-app-bar-title>
+
+      <v-btn to="/factures" router flat>Factures</v-btn>
+      <v-btn to="/contacts" router flat>Contacts</v-btn>
     </template>
 
     <v-spacer />
-    <v-btn flat>{{ userStore.username }}</v-btn>
+    <v-btn flat>{{ userStore.user ? `${userStore.user.prenom} ${userStore.user.nom}` : '' }}</v-btn>
     <v-btn icon="mdi-power" @click="logout"></v-btn>
   </v-app-bar>
 </template>
@@ -23,13 +24,12 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const userStore = useUserStore()
+const { userConnected } = storeToRefs(userStore)
 
-function logout() {
-  userStore.disconnect()
-  router.push('/login')
+async function logout() {
+  await userStore.disconnect()
+  router.push('/Login')
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
