@@ -29,19 +29,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
   const { userConnected } = storeToRefs(userStore)
-  next()
-  // console.log(userConnected.value)
 
-  // if (to.name == "login" && userConnected.value) {
-  //   next({ name: 'factures' })
-  // }
+  if (to.name == "login" && userConnected.value) {
+    next({ name: 'factures' })
+  }
 
-  // if (to.meta.requiresAuth && !userConnected.value) {
-  //   console.log("utilisateur deconnecté")
-  //   next({ name: 'login' })
-  // } else {
-  //   next()
-  // }
+  if (to.meta.requiresAuth && !userConnected.value) {
+    console.log("utilisateur deconnecté")
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router

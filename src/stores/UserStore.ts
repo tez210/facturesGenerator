@@ -1,11 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { User } from '@/types/User'
+import { User } from '@/objects/User'
 import { supabase } from '@/lib/supabaseClient'
 import { useInfobarStore } from '@/stores/InfoBarStore'
-import { useRouter } from 'vue-router'
-
-
 
 export const useUserStore = defineStore('user', () => {
   const userConnected = ref(false)

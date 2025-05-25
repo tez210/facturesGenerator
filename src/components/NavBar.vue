@@ -1,6 +1,5 @@
 <template>
-  <!-- v-if="userConnected" -->
-  <v-app-bar color="primary" app>
+  <v-app-bar color="primary" app v-if="userConnected">
     <template v-slot:prepend>
       <v-app-bar-title class="ml-5 mr-8">
         Factures Generator

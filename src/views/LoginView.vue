@@ -13,7 +13,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn block variant="flat" color="background" @click="loginUser" :disabled="mail == '' || password == ''">
+      <v-btn block variant="flat" color="color_e" @click="loginUser" :disabled="mail == '' || password == ''">
         Login
       </v-btn>
     </v-card-actions>
@@ -25,6 +25,7 @@ import { useInfobarStore } from '@/stores/InfoBarStore'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabaseClient'
+import { selectFromTable } from '@/services/supabaseService'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -53,14 +54,13 @@ async function loginUser() {
   console.log('Connecté :', user)
 
 
-  const { data: userInfo, errorget } = await supabase
-    .from('user')
-    .select('*')
-    .eq('id_auth', user.id)
-    .single()
+  const userInfoArray = await selectFromTable('user', '*', [
+    { column: 'id_auth', operator: 'eq', value: user.id }
+  ])
 
-  if (errorget) {
-    snackbar.showInfobar('Connexion échouée : ' + errorget, 'error')
+  const userInfo = userInfoArray && userInfoArray.length > 0 ? userInfoArray[0] : null
+
+  if (userInfo == null) {
     return
   }
 

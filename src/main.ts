@@ -1,6 +1,7 @@
 // src/main.ts
 import 'vuetify/styles' // Styles Vuetify
-import '@mdi/font/css/materialdesignicons.css' // Icônes (optionnel)
+import '@mdi/font/css/materialdesignicons.css'
+import { VDateInput } from 'vuetify/labs/VDateInput'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -11,6 +12,9 @@ import router from './router'
 import { createVuetify } from 'vuetify'
 
 const vuetify = createVuetify({
+  components: {
+    VDateInput,
+  },
   theme: {
     defaultTheme: 'myCustomTheme',
     themes: {
@@ -18,18 +22,24 @@ const vuetify = createVuetify({
         dark: true,
         colors: {
           background: '#E1EEBC',
-          surface: '#C78880',
+          surface: '#245D4A',
           primary: '#328E6E',
-          secondary: '#DDF6D2',
-          light: '#FFFBDE',
-          error: '#CB0404',
-          info: '#096B68',
-          success: '#2abe17',
-          warning: '#FF9F00',
-          onPrimary: '#096B68',
-          onSecondary: '#096B68',
-          onBackground: '#096B68',
-          onSurface: '#096B68',
+          secondary: '#90C67C',
+          light: '#E1EEBC',
+          error: '#D7263D',
+          info: '#1D7F7F',
+          success: '#2BB673',
+          warning: '#F5A623',
+          onPrimary: '#FFFFFF',
+          onSecondary: '#1F3B2C',
+          onBackground: '#1F3B2C',
+          onSurface: '#FFFFFF',
+          color_a: '#E1EEBC',
+          color_b: '#90C67C',
+          color_c: '#67AE6E',
+          color_d: '#328E6E',
+          color_e: '#245D4A',
+          disabled: '#C9D5C2'
         }
       }
     }

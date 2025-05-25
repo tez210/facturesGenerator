@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <InfoBar></InfoBar>
-    <NavBarComponent></NavBarComponent>
+    <NavBar></NavBar>
 
     <!-- Contenu principal -->
     <v-main>
@@ -14,12 +14,14 @@
 </template>
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import NavBarComponent from '@/components/NavBarComponent.vue'
+import NavBar from '@/components/NavBar.vue'
 import InfoBar from './components/InfoBar.vue';
 </script>
 
 <style>
 @import "@/assets/styles/colors.scss";
+@import "@/assets/styles/title.scss";
+@import "@/assets/styles/button.scss";
 
 #app {
   padding: 0;

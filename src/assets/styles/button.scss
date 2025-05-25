@@ -1,0 +1,27 @@
+@use './colors.scss' as *;
+
+.basic_btn {
+    color: var(--color_f);
+}
+
+.basic_btn:hover {
+    color: var(--color_a);
+    background-color: var(--color_f);
+}
+
+.white_btn {
+    color: white;
+}
+
+.white_btn:hover {
+    color: var(--color_d);
+    background-color: white;
+}
+
+.mdi-chevron-up {
+    color: white;
+}
+
+.mdi-chevron-down {
+    color: white;
+}
