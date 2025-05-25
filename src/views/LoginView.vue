@@ -25,7 +25,6 @@ import { useInfobarStore } from '@/stores/InfoBarStore'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabaseClient'
-import { selectFromTable } from '@/services/supabaseService'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -54,9 +53,15 @@ async function loginUser() {
   console.log('Connecté :', user)
 
 
-  const userInfoArray = await selectFromTable('user', '*', [
-    { column: 'id_auth', operator: 'eq', value: user.id }
-  ])
+  const { data: userInfoArray, error2 } = await supabase
+    .from('user')
+    .select('*')
+    .eq('id_auth', user.id)
+
+  if (error2) {
+    snackbar.showInfobar('Erreur récupération user :', error.message, 'error')
+  }
+
 
   const userInfo = userInfoArray && userInfoArray.length > 0 ? userInfoArray[0] : null
 
