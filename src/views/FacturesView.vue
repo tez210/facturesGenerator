@@ -5,8 +5,8 @@
       </NewFacture>
     </v-dialog>
 
-    <v-dialog v-model="dialogFacture" width="auto" scrim="rgba(0, 0, 0, 0.9)">
-      <FactureDetail :facture="factureSelected"></FactureDetail>
+    <v-dialog v-model="dialogFacture" max-width="800px" max-height="90%" scrim="rgba(0, 0, 0, 0.9)">
+      <FactureDetail :facture="factureSelected" :titulaire="getTitulaire(factureSelected.titulaire)"></FactureDetail>
     </v-dialog>
 
     <v-row class="pl-3 pb-5 pr-4">
@@ -113,7 +113,11 @@ function openFacture(item) {
 
 function getNomPrenom(titulaireId) {
   const contact = contacts.value.find(c => c.id === titulaireId)
-  return contact ? `${contact.prenom}  ${contact.nom}` : '—'
+  return contact ? `${contact.nom.toUpperCase()} ${contact.prenom}` : '—'
+}
+
+function getTitulaire(titulaireId) {
+  return contacts.value.find(c => c.id === titulaireId)
 }
 
 async function fetchContacts() {
