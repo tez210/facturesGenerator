@@ -39,6 +39,7 @@ const vuetify = createVuetify({
           color_c: '#67AE6E',
           color_d: '#328E6E',
           color_e: '#245D4A',
+          color_f: '#1F3B2C',
           disabled: '#C9D5C2'
         }
       }

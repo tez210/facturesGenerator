@@ -5,7 +5,12 @@
       </NewFacture>
     </v-dialog>
 
+    <v-dialog v-model="dialogFacture" width="auto" scrim="rgba(0, 0, 0, 0.9)">
+      <FactureDetail :facture="factureSelected"></FactureDetail>
+    </v-dialog>
+
     <v-row class="pl-3 pb-5 pr-4">
+      <v-icon class="mt-2 mr-2" size="x-large" color="color_f">mdi-bank-circle-outline</v-icon>
       <h1>Factures</h1>
       <v-text-field v-model="search" density="compact" color="color_e" label="Rechercher"
         prepend-inner-icon="mdi-magnify" variant="outlined" hide-details single-line class="search"
@@ -18,9 +23,14 @@
     </v-row>
 
     <v-data-table :headers="headers" :items="factures" class="custom-data-table" density="compact" item-value="id"
-      hide-default-footer hover :loading="loading_tab" v-model:sort-by="sortBy" :sort-desc="[true]" :search="search">
+      hide-default-footer hover :loading="loading_tab" v-model:sort-by="sortBy" :search="search" @click:row="openPdf">
       <template v-slot:item="{ item }">
         <tr class="text-no-wrap">
+          <td class="mr-0 ml-0 pr-0 pl-2">
+            <v-btn icon variant="text" @click="openFacture(item)">
+              <v-icon>mdi-invoice-text</v-icon>
+            </v-btn>
+          </td>
           <td>{{ item.numero }}</td>
           <td>{{ item.date_facture }}</td>
           <td>{{ getNomPrenom(item.titulaire) }}</td>
@@ -34,8 +44,8 @@
           <td>{{ item.date_debut_rempla }}</td>
           <td>{{ item.date_fin_rempla }}</td>
           <td class="text-end">
-            <v-btn icon variant="text" @click="openPdf(item.open)">
-              <v-icon>mdi-file-pdf-box</v-icon>
+            <v-btn icon variant="text">
+              <v-icon>mdi-delete</v-icon>
             </v-btn>
           </td>
         </tr>
@@ -49,15 +59,19 @@ import { ref, onMounted } from 'vue'
 import { useInfobarStore } from '@/stores/InfoBarStore'
 import { supabase } from '@/lib/supabaseClient'
 import NewFacture from '@/components/NewFacture.vue';
+import FactureDetail from '@/components/FactureDetail.vue';
 
 const search = ref('')
 const loading_tab = ref(false)
 const snackbar = useInfobarStore()
 const dialogNewFacture = ref(false)
+const dialogFacture = ref(false)
 const factures = ref([])
+const factureSelected = ref(null)
 const contacts = ref([])
-const sortBy = ref([{ key: 'numero', order: 'dsc' }])
+const sortBy = ref([{ key: 'numero', order: 'desc' }])
 const headers = [
+  { title: '', key: 'open', align: 'start', sortable: false },
   { title: 'Facture  n°', key: 'numero', align: 'start' },
   { title: 'Date facture', key: 'date_facture' },
   { title: 'Titulaire', key: 'titulaire' },
@@ -66,7 +80,7 @@ const headers = [
   { title: 'Montant reversé', key: 'somme_recu' },
   { title: 'Date début', key: 'date_debut_rempla' },
   { title: 'Date fin', key: 'date_fin_rempla' },
-  { title: 'Actions', key: 'open', align: 'end' },
+  { title: 'Actions', key: 'action', align: 'end' },
 ]
 
 onMounted(() => {
@@ -92,6 +106,16 @@ function addFacture() {
   dialogNewFacture.value = true
 }
 
+function openFacture(item) {
+  factureSelected.value = item
+  dialogFacture.value = true
+}
+
+function getNomPrenom(titulaireId) {
+  const contact = contacts.value.find(c => c.id === titulaireId)
+  return contact ? `${contact.prenom}  ${contact.nom}` : '—'
+}
+
 async function fetchContacts() {
   loading_tab.value = true;
   const { data, error } = await supabase
@@ -107,9 +131,8 @@ async function fetchContacts() {
   loading_tab.value = false;
 }
 
-function getNomPrenom(titulaireId) {
-  const contact = contacts.value.find(c => c.id === titulaireId)
-  return contact ? `${contact.prenom}  ${contact.nom}` : '—'
+function openPdf(value) {
+  console.log(value)
 }
 
 </script>

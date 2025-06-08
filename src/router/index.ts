@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import FacturesView from '@/views/FacturesView.vue'
+import ContactsView from '@/views/ContactsView.vue'
 import LoginView from '@/views/LoginView.vue'
 import { useUserStore } from '@/stores/UserStore'
 import { storeToRefs } from 'pinia'
@@ -11,6 +12,12 @@ const router = createRouter({
       path: '/Factures',
       name: 'factures',
       component: FacturesView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/Contacts',
+      name: 'contacts',
+      component: ContactsView,
       meta: { requiresAuth: true }
     },
     {

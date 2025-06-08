@@ -1,6 +1,9 @@
 <template>
-    <v-card color="primary" prepend-icon="mdi-plus" title="Nouvelle facture" class="new-facture-card">
-
+    <v-card color="primary" class="new-facture-card card_all">
+        <v-card-title class="card_header" style="background-color: blue;">
+            <v-icon size="small">mdi-plus</v-icon>
+            Nouvelle facture
+        </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <v-form>
@@ -11,7 +14,7 @@
                     :item-title="formatContact" item-value="id" :loading="loading_contacts"></v-select>
                 <v-number-input v-model="somme_brut" control-variant="white" density="compact" controlVariant="stacked"
                     label="Somme brut (€)" variant="outlined" :min="0" :step="100"></v-number-input>
-                <v-slider label="Taux" v-model="taux" thumb-label="always" min="1" max="100" always-dirty step="1"
+                <v-slider label="Taux" v-model="taux" thumb-label="always" min="0" max="100" always-dirty step="5"
                     class="ml-0 mt-5">
                     <template v-slot:thumb-label="{ modelValue }">
                         {{ modelValue }}%
@@ -24,7 +27,7 @@
                             @click="updateSommeRecu()" class="white_btn"></v-btn>
                     </template>
                 </v-number-input>
-                <v-date-input v-model="dates_rempla" prepend-icon="" label="Dates de remplassement" variant="underlined"
+                <v-date-input v-model="dates_rempla" prepend-icon="" label="Dates de remplacement" variant="underlined"
                     multiple="range">
                 </v-date-input>
 
@@ -73,7 +76,7 @@ async function setLastNumeroFacture() {
     const { data, error } = await supabase
         .from('facture')
         .select('numero, date_facture')
-        .order('date_facture', { ascending: false })
+        .order('numero', { ascending: false })
         .limit(1)
         .maybeSingle()
 
