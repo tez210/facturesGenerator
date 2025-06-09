@@ -117,10 +117,10 @@ async function generatePdfBlob() {
     y += lineSpacing
 
     // Signature image
-    const sigResponse = await fetch('/signature.jpg')
+    const sigResponse = await fetch('/public/signature.jpg')
     const sigBlob = await sigResponse.blob()
     const sigBase64 = await blobToBase64(sigBlob)
-    doc.addImage(sigBase64, 'JPG', 40, y - 15, 30, 30)
+    doc.addImage(sigBase64, 'JPEG', 40, y - 15, 30, 30)
 
     // Génération du PDF
     const blob = doc.output('blob')
